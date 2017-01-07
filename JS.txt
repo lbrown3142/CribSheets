@@ -1,0 +1,39 @@
+Java Script
+
+Hoisting - variables are accessed before they are declared
+
+code is compiled in two paces
+	first pass reads variables/declarations (not value)
+	second time around exicutes code 
+	
+avoid hoisting
+
+
+
+Scope
+	
+	var variableName -> local if in function
+	variableName -> global	#does not work in scrict mode
+	
+try catch -> variables declared are only in this scope -> block scope 
+
+
+
+Numbers -> floating point numbers are inaccurate -> off my small amounts 
+
+user.toFixed to round floating point number 
+
+if referencing and object javascrip will take the valueof property of that object as the value
+
+
+booleans
+
+	var object && value = value
+	
+	
+types
+
+	primative types have different memory allocated (not referenced)
+	reference types (everything else) have pointers
+	
+	

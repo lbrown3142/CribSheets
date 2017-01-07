@@ -1,0 +1,17 @@
+
+Redux
+
+	State
+
+	State is an object managed by store
+
+	Store.getState() -> return state object
+
+	use properties of state object to update html elements
+
+
+	Reducer
+
+	reducer is a function that receives two parameters:
+		1. current state
+		2. action 

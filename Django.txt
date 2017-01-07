@@ -1,0 +1,49 @@
+Virtualenv -> stops creates isolated enviroments to stop project/versions conlficting
+
+Create new virtualenv
+
+	virtualenv -p 'path/to/python/version'
+	virtualenv -p /usr/local/bin/python3
+	
+Activating a virtual enviroment
+
+	in createad directory -> source bin/activate
+	
+
+Django
+
+
+Creating a project
+
+	django-admin.py startproject 'project_name'
+
+	cd 'project_name'
+	
+	
+Running the server
+
+	python manage.py runserver -> runs server	
+
+
+Creating an App
+
+	python manage.py startapp'app_name'
+
+	app -> fully functioning django app with its own views etc 
+
+	'app_name' needs to be added to settings.py under INSTALLED_APPS
+	
+	URL needs to be mapped in urls.py
+	
+		url(r'', 'main.views.home')
+		
+		note r'' -> blank url -> home page
+		
+		
+views.py
+	
+	contains functons which are called via urls.py
+	
+	def function(request, ...):  -> request is always passed and can be used to access a users ip address, agruments, headers, type of browsers
+		return (request, 'template') -> 'template' such as 'band/band.html'
+	

@@ -1,0 +1,10 @@
+#current hdfs capacity - traffic light
+#number of currently running yarn tasks
+#current total cpu usage
+#current total memory usage
+
+disk growth 
+linux file system utilisation - /opt/ - usage 
+last reboot
+number of current running java process 
+number of active users/sessi
