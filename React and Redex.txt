@@ -15,3 +15,41 @@ Redux
 	reducer is a function that receives two parameters:
 		1. current state
 		2. action 
+
+	
+	Dispatch is a member of store it receives action object as a parameter 
+	It transfers actions into a reducers 
+	action has a type property (action.type) which calls a function or code in the relevant switch case (in the case decriment) 
+	
+	
+	
+	Object.assign clones current state object and asigns it to parameter nextState, this parameter can then be changed (cannot change current state only nextState) 
+	
+	
+	store.subscribe(render) -> invokes render() each time state is updated (triggered by dispatch) (updated by reducer)
+	it attaches the new values of state to html attributes
+	
+	
+	
+React 
+
+	a component is an isolated bit of code that takes in props as arguements, 
+		can have internal states 
+		and returns a hierarchy of views to display via render method
+
+	state is private to a component
+	
+	states can be passed down to children as props
+		this is used if the states are children need to be controlled or shared -> controlled components
+		
+	it's popular to name handler props starting with on and their implementations with handle.
+	
+	.slice copies state instead of modifying it
+	
+	
+	key is a special property that's reserved by React.
+	Keys tell React about the identity of each component, so that it can maintain the state across rerenders
+	It's strongly recommended that you assign proper keys whenever you build dynamic lists.
+	
+	
+	
