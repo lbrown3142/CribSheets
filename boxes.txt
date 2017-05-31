@@ -1,0 +1,46 @@
+./node_modules/.bin/webpack --config webpack.config.js --watch
+
+node server/server.js
+192.168.56.101
+
+
+
+10.102.82.76
+
+
+curl -d '{"label" : "Test", "state" : "ok"}' "application/json" http://127.0.0.1:8000/
+
+curl -d '{"MyKey":"My Value"}' -H "Content-Type: application/json" http://127.0.0.1:8000/
+
+curl -d '[{"MyKey":"My Value"},{"MyKey2":"My Value2"}]' -H "Content-Type: application/json" http://127.0.0.1:8000/
+
+
+curl -d '[{"MyKey":"My Value","MyKey2": "My Value2"}]' -H "Content-Type: application/json" http://127.0.0.1:8000/
+
+curl -d '{"MyKey":"My Value","MyKey2": "My Value2"}' -H "Content-Type: application/json" http://127.0.0.1:8000/
+
+curl -d '{"cluster_status": "ok","disk":"80","cpu": "65" ,"memory": "75", }' -H "Content-Type: application/json" http://127.0.0.1:8000/
+
+
+
+
+
+
+
+
+
+
+
+curl -d '{"label" : "Test"}' "application/json" http://127.0.0.1:8000/
+
+
+
+curl -d '['{{repeat(5, 7)}}' , {id: '{{objectId()}}' , index: '{{index()}}', guid: '{{guid()}}']' -H "application/json" http://127.0.0.1:8000/
+
+
+devu0000290.localdomain:8020
+
+Cluster 1
+
+/opt/app/dashboard/command-centre/Backend/python_modules
+

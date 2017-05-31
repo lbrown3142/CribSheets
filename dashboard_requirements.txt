@@ -1,0 +1,8 @@
+Requirements
+
+protegrity status
+scheduled maintenance date/times
+
+Cloudera
+	HBASE, HIVE, IMPALA, ZOOKEEPER
+	Disk usuage in different databases, directories <--- big issue

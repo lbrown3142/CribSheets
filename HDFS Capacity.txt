@@ -1,0 +1,35 @@
+HDFS Capacity.
+
+
+Report Manager - Gain Visability 
+Create forecast given data from RM
+
+HDFS Directory Structure should has been designed well in advanced - thats the deck we've been delt 
+We're getting new capacity over the next couple of weeks - bring us down to around 60% to begin with
+	Does this give us a window of oppertunity to start redefined HDFS structure?
+		Given the new tempary 'wiggle room'
+			We could define a new stucture (where needed) and move and consolidate existsing directories into this.
+					Once we know the directories have been migrated we can safely delete them. 
+					
+					
+Before we ingest more DA data? - new security thing
+
+
+
+Two ways to merge hdfs files:
+
+Pull the data to one node and then put it back into hdfs restructured using hdfs commands
+or
+Use spark (if files are not too large) - don't need to copy it to a node first (in memory)
+
+
+	
+Steps:
+	
+1. Gain visability by utilsing report manager
+2. (With the visiability gained from RM) Identify potential the directories that could consolidation and/or structured
+3. See how much disk capacity this could save
+3. Get the go ahead to implement the directory consolidation and restructuring 
+4. Do it
+5. Check if step 4 worked
+6. Delete old directories

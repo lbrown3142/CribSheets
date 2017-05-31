@@ -1,0 +1,146 @@
+
+shabang:
+
+	#! -> sharp bang "shabang" -> it chooses which interpreter to use -> e.g. #!/bin/bash or #!/bin/csh
+
+	interpreter is exicuteed and the /bin/bash is passed in as an agrument 
+
+	it defaults to current shell 
+
+	can use python #!/usr/bin/python
+	
+
+variables: 
+
+	MY_VARIABLE = "foo"
+	
+	echo ${MY_VARIABLE}
+	
+	-> foo
+	
+	can store the return of command as a variable using the dollar symbol
+	
+	SERVER_NAME = $(hostname)
+	
+
+conditionals/tests:
+
+	synteax -> [ condition-to-be-tested ]
+	
+	Example -> [ -e /etc/passwd ] tests if /etc/passwd file exists
+	
+	-d -> true is file is a directory
+	-e -> true if file exists
+	-f -> true is file existsa nd is a regular file
+	-r -> true if file is readable by you
+	-s -> true if files exists and is not empty
+	-w -> true if the file is writable by you
+	-x -> true is the file is executable by you
+	
+	 help test -> more infomation/options
+	 
+if statements:
+
+	if [condition as above]
+	then ...
+	elif [condition as above]
+	then ...
+	else ...
+	fi
+	
+for loops:
+
+	for VARIABLE in (list of objects or variable containing a list)
+	do ...
+	done
+	
+	e.g.
+	
+	#!/bin/bash
+	PICTURES=$(ls *jpg)
+	DATE=$(date +%F)
+	
+	for PICTURE in $PICTURES
+	do
+		echo "Renaming ${PICTURE) to ${DATE}-${PICTURE}"
+		
+		mv ${PICTURE) ${DATE}-${PICTURE}
+		
+	done
+
+positional parameters:
+
+	script.sh parameter1 parameter2 parameter3
+	
+	-> $0 = script.sh, $1 = parameter1, $2 = parameter2, $3 = parameter3
+	
+	-> the script can refer to itself 
+	
+		e.g. echo "running $0"
+		
+	   and also refer to whatever parameters are passed, user, date etc 
+	
+	-> can refer to every arguement after $0 using $@
+
+
+user input: 
+	
+	syntex -> read -p "PROMPT" VARIABLE
+	
+	e.g. read -p "What is your name?" NAME
+		
+		echo ${NAME}
+		
+
+exit status:
+
+	$? -> return value which can be used as a parameter
+	
+	if 0 then it worked
+	
+	if none 0 there was an error. this number can be looked up using documentation 
+	
+	
+$$ and || and ; :
+
+	can use to run successive code
+	
+	some code && some other code 
+	
+		-> if 'some code' exists with a 0 exist status then 'some other code' with run
+		-> otherwise if there is a non zero exist status 'some other code' will not
+	
+	some code || some other code
+		
+		-> other way around 'some other code' only exicutes with a non 0 exist code 
+		
+	some code ; some other code
+		
+		-> all code will run regardless of exit codes 
+		
+		
+exit command:
+
+	use exit 'number from 0-255' at the end of your shell script
+	if you do not include this, the last command ran in your script with return instead
+	
+
+functions:
+
+	function 'function name' () {
+		...code...
+	{
+	
+	call it using 'function name' and not 'function name' () 
+	
+	can reference arugements passed in using $1, $2, $@ etc
+	
+	if variables are declared in a function then the function has to be ran in order for the variable to be used outside
+	
+	can use local keyword i.e. local VARIABLE = 1 to restrict access of that variable to the function only
+
+	exist status:
+	
+		return 'number from 0 - 255'
+		
+	

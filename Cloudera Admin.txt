@@ -1,0 +1,133 @@
+Hadoop Administrator 
+
+traditionally data throughput (reading data) is slow compared disk capacity 
+
+throught put of 1000 disks is 1000 times faster than a single big disk 
+
+
+
+installing cloudera manager 
+
+	chech java version 
+
+		java -version
+		
+	check java path
+
+		echo $JAVA_HOME
+		
+	check path 
+		
+		env | grep PATH
+
+	check python version (query all rpm packages and search for python) 
+
+			sudo rpm -qa | grep python-2.6
+			
+	check mysql is install and running
+		
+		chkconfig | grep mysqld
+		
+		sudo server mysql service
+		
+		
+	create data bases - users shell scripts mysql-setup.sql
+
+	log into sql and list databases
+
+		mysql -u root
+		show tables 
+		
+	remove test databases, anonymous users etc
+
+	check repo
+
+		cat /etc/yum.repos.do/cloudera-cm5.repo
+
+	install clouder manager daemons
+
+		sudo yum -y cloudera-magager-daemons > cloudera manager server 
+
+
+	check config 
+
+		sudo chkconfig cloudera-scm-server off
+		
+	create the required database 
+
+		sudo /use/share/cmf/schema/scm_prepare_database.sh mysql cmserver cmserveruser password 
+		
+	curl ports 8000 8050 
+
+	start server
+
+		sudo service cloudera-scm-server start
+		
+	review start up options
+
+		ps was | grep [c]loudera-scm-server 
+		
+		
+		
+		
+HDFS - watch again (first two) 
+
+	name node
+		
+		only even orchestrates the process - not a bottl neck - no reads etcs 
+		fs name node - contains metadata 
+	
+	secondary name node
+	
+	
+	
+HDFS File write 
+
+	if any time of the pipeline anytihng fails, it does it again, can copy data from nodes that were successful 
+	
+	
+	
+	
+HDFS file reading
+	
+	call to name name - request info of a file
+	name node will return block names, locatiosn and persmissions
+	fs data input steam is created and and gets data from block
+	it also check if data is correct again the block is got it from
+	if it fails it copies again and logs a corrupt file 
+	
+
+Name node use of memory
+
+	use 1g per million hdfs blocks
+	stores metadata for each block 
+	this is why fewer bigger blocks are prefer to many small ones 
+		- requires much more ram 
+		
+	
+HDFS security
+
+	file permissions
+
+		similar to unix
+		stop accidents 
+	
+	authenications
+		
+		kerberis - enterprise builds
+		LDAP - can be used be uses clear view passwords so not recommended 
+		
+	access controll
+	
+		roll based access controll - apache sentry
+		
+	data encriptuon
+	
+		os level, hdfs level and network level -check for technology name 
+	
+
+	
+
+	
+		
+

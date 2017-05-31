@@ -1,0 +1,152 @@
+Cloudera Director 
+
+documentation => https://www.cloudera.com/documentation/director/latest/topics/director_intro.html
+
+use web UI for simple, non production, non kerberised builds. 
+	CLI requires cloudera-director-client 
+	default configurating using application.properties or can pass parameters with command
+
+server will need to be restarted after a change to application.properties
+
+	e.g. sudo service cloudera-director-server restart/start/stop
+
+
+Getting started.
+
+	setting up AWS
+	
+		set up amazon virtual private cloud (VPC)
+		
+			configured for forward and reverse hostname resolution
+		
+			use vpc wizzard
+			
+		create a new security group
+			
+			click Security groups
+			
+			create a new one for the VPC 
+			
+			click on inbound rules tab at the bottom
+			
+			configure as specified  in cloudera documentation
+		
+		
+		
+		create an SSH key pair 
+		
+			click on EC2
+			
+			in network & security select key pairs
+			
+			create new key pair and move automatically downloaded pem to secure location
+			
+
+Creating an EC2 instance
+
+	choose AMI
+
+		click ec2 and launch instance
+		
+		select a community AMI
+		
+	choose instance type
+	
+		choose a size - large is recommended, I'm trying with micro (free)
+		
+	add storrage
+	
+		minimum of 8gb recommended
+		
+	Add tag instance
+		
+		used talend_poc
+		
+	configure security groups 
+	
+		note: it did not let me select the security group I created earlier
+		I had to create a new one with only the SSH configured. I then added 
+		the all traffic section after I craeted the instance as I had to link
+		the security group as source which was not created until I made the EC2. 
+
+		
+		
+installing cloudera director
+	
+	ssh into the box
+	
+		ssh -i your_file.pem ec2-user@private_IP_address
+		
+		-> ssh -i talend_poc.pem ec2-user@34.250.197.123
+		
+	install wget
+		
+		sudo yum install wget
+		
+	download oracle java
+	
+		cd ~
+		
+		wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.rpm"
+
+	
+	install java
+			
+		sudo yum localinstall jdk-version-linux-x64.rpm
+
+		->  sudo yum localinstall jdk-8u60-linux-x64.rpm
+		
+	add cloudera director repo
+	
+		cd /etc/yum.repos.d/
+		
+		sudo wget "http://archive.cloudera.com/director/redhat/7/x86_64/director/cloudera-director.repo"
+
+		
+	install cloudera director
+		
+		sudo yum install cloudera-director-server cloudera-director-client
+
+	start the service 
+	
+		sudo service cloudera-director-server start
+
+	
+	disable firewall (did not work not me, the service was not running)
+	
+		sudo systemctl disable firewalld
+		sudo systemctl stop firewalld
+
+	
+	setup SOCKS proxy server
+	
+		nohup ssh -i "your-key-file.pem" -CND 8157 ec2-user@instance_running_director_server &
+		
+			see documentation for explaination 
+		
+		->nohup ssh -i "talend_poc.pem" -CND 8157 ec2-user@34.249.55.60 &
+
+		
+	open chrome using this command 
+	
+		"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" ^
+		--user-data-dir="%USERPROFILE%\chrome-with-proxy" ^
+		--proxy-server="socks5://localhost:8157"
+		
+		
+		
+		
+-----------------------------------------------------------------
+
+	Cloudera Director Course
+	
+what is it? used to deploy and manager cloudera enterprise clusters
+
+can scheudle jobs such as spark to run when the cluster is spun up 
+
+can manage clusters in diffferent cloud providers using plugins. 1 cloudera director instance can manage multiple clusters. 
+
+
+i2HQd/M6ik3N2zxq+Sc1ZedV9alxmhDcaoGCKvXW
+	
+	

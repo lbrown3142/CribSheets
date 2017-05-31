@@ -1,0 +1,161 @@
+Spark
+
+- process data in memory for faster exicution
+- exicution plan to organise work
+- highl level API 
+
+HDFS
+
+	- file system writen in java
+	- sits on top of a native filesystem such as ext3, ext4 or xfs
+	- provided redundant storage for massive amounts of data
+	- uses readily availible hardware 
+	
+	- millions rather than billions of files
+	- each file is typically 100mb
+	- immutable - cannot edit a file once the file is stored
+	- not good at random reads, much better at read this point to this point 
+	- 128mb per block
+	- each block is stored in 3 locations (default) 
+	- namenode stores metadata of what data is on what data node, so when data needs to be read it goes via the name node 
+	
+
+YARN
+
+	- 'yet another resource negotiator'
+	- multiple processing frameworks working at once -> need to distribute resources
+	- resource manager -> runs on master node 
+					   -> global resource scheduler
+					   -> distributes resources between competeing applications
+					   -> has plugable scheduler to support different algorithms (capacity, fair scheduler, etc)
+					   
+	- node manager -> runs on worker nodes
+				   -> communicates with RM
+				   -> runs work on worker nodes
+	
+	1) work submitted to the cluster is submitted to the RM 
+	
+	2) RM connects to a node manager and creates an Applications Master (AM) on a worker node. it tells the AM what work needs to be processed
+	
+	Applications Master (AM)
+		-> one per application
+		-> framework and application specific
+		-> runs in a container
+		-> tells applications to run application tasks 
+		
+	3) AM will ask the RM to create containers on other nodes. RM connects to a node managers on other nodes and instructs it to create one or more containers (java virtual machines JVM) which will do the work.
+	
+	Containers 
+		-> ram/cpu is allocated
+		-> appliations run inside one or more containers 
+	
+	4) AM will talk to the created containers and instruct them to do the actual work 
+	
+	
+Spark
+	
+	Advantages
+		-> distribute processing of data
+		-> in memory (when possible)
+		-> processes data sorage on node (when possible) -> data locality 
+		-> works with hdfs
+		-> high level API -> developers can focus on solving the problem/logic and not worry about the plumming like a map reduce job 
+			-> 100 lines map reduce job might take 10 in spark 
+			-> more productive
+		-> much faster than map reduce -> up to 100 times 
+		
+	Allows us to:
+		-> do previously imposible or impractical tasks
+		-> lower cost
+		-> dev less times
+		-> good at iterative alogithms
+		-> greater flexibility
+		-> near linear scalbility with hardware
+		
+	
+	what is it?
+	
+		-> general engine for large scale data processing
+		-> written in scale -> JVM function programming language 
+		
+	Spark shell
+	
+		-> intractive for learning or data explorations
+		-> python (pyspark) or scala (spark-shell)
+		
+		REPL - read, evaluate, print, loop
+		
+		-> get immediate results back
+		
+		
+		-> every spark application requires a spark context - main entery point for spark
+			-> created as 'sc' when you start the shell 
+		
+	Spark Applications
+	
+		-> large scale data processing
+		-> python, scale or java
+		
+
+RDD - resilient distributed dataset
+
+	resilient - data is recreated if lost
+	distributed - across cluster
+	dataset - initial data can come from a file or be created programmatically 
+	
+
+	-> RDD are a the fundamental unit of data in spark
+	-> most spark programming consists of performing operations on RDDs
+	
+	Creating Data
+	
+		-> from a file or set of files
+		-> data in memory 
+		-> from another RDD
+
+		
+Types of opertations
+
+	actions -> return values
+	
+		examples:
+		
+			count() -> return number of elements
+			
+			take(n) -> return an array of the first n 
+			
+			collect() -> return an array of all elements
+			
+			saveAsTextFile(file) -> save to a text file(s)
+	
+	transformations -> define a new RDD based on the current one(s) -> RDD ares immutable
+		
+		examples: 
+			
+			map(function) -> creates a new RDD by performing a function on each record in the base RDD
+			
+			filter(function) -> creates a new RDD by inlucding or excluding each record in the base RD according boolean function
+			
+		
+
+Lazy execution -> data in RDD is not populated or processed until an action is performed
+
+Pipelining -> spark will do incremental calcualtions -> one eletement at a time -> less WIP -> do not have to read in every line of file initially 
+
+
+Functional programming in spark 
+
+	-> spark is heavily dependany on functional programming
+	
+	-> pass functions as inputs to other functions -> like map(fn(x)) 
+	-> anonymous functions 
+	
+
+
+		
+	
+			
+	
+	
+	
+		

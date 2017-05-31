@@ -1,0 +1,57 @@
+cloudera map reduce
+
+hbase
+	hugh throughput, large amounts of data, randomly queried
+	
+ingestion
+	
+		hdfs - direct file  transfer command line 
+		
+		apache sqoop - import from a relational database
+		
+		flume - access as data is being generated
+				distributed service for steaming data
+				log files
+		
+		kafka - access as data is being generated
+				high throughput, scalable messing system
+				distributed, relable publish-subribe system
+				
+		pig - scripting language for map reduce jobs
+		
+		impala - low latency
+				 ad hoc analysis 
+				 ideal for interactive analysis 
+				 
+		hive - sql like language for batch processes (map reduce and spark)
+		
+		cloudera search - full text search with web front end 
+						  explore data without code
+						  uses apache solr
+						  
+		oozie - workflow process scheduler
+		
+		sentry - autherization - what people can do what in hadoop
+		
+		yarn - resource manager 
+				2 daemons - resource manager - runs on master node
+							node manager - runs on worker nodes
+				finds out where data is from name node and then allocates a container with specific cores/ram to process the data 
+		
+		
+Architecture
+
+	daemon - program that runs on a node 
+						  
+	hdfs - runs ontop of ext3, ext4 or xfs formated disk
+			modest number of large files, typically 100mb +
+			write once, no random writes, immutable
+			not optimised for random reads, much better for large streaming reads of the file
+	
+			blocks are 128 mb each and are distributed and replicated across the notes
+			
+	
+	hadoop fs - if you don't pass a path it assumes you mean your home direcctory		
+		
+		
+				
