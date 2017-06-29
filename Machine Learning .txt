@@ -1,0 +1,86 @@
+Machine Learning
+
+
+Machine learning is a field within AI - the science of making machine inteligent 
+
+Machine learning ofcses on automated knowledge acquisition
+	- mainly through the design and implementation of algoriths
+	- these algorithms require empirical data as imput 
+	
+Machine laerning alorithms learn from data and often produce a predictive model as their output 
+	models can then be use to make predictions as new data arrives
+	
+	
+	
+	
+Three machine learning techniques are (three C's):
+	
+	- collaborative filtering (recommendations)
+	
+		helps users find items of relevance
+			
+			amoung a potentially vast nuber of choices
+			based on comparision of preferences between users
+			preferences can be either explicit (stated) or implicit(observed)
+		
+		- domain agnostsic 
+		- relationships between users and items and not items themselves
+		- amazon uses collaborative filtering to find users with similar taste
+	
+	- clustering
+	
+			- clustering is unsupervised learning 
+				- beings with no structure defined
+				- analysis data and defined a structure 
+			
+			- used to discover structures in collectsion of data werer the structure was not previously defined
+			- discover which clusters (grouping) naturally occur in data by examiining various properties of the input data
+			- clustering is often used for exploratory analysis
+				- divide huge amount of data into smaller groups
+				- can then tune analysis for each group 
+				
+			
+				
+			examples:
+			
+				marketing segmentations 
+					- group similar custers in order to target them effectively
+					
+				finding related new articles
+					- google news 
+				
+				epidemiological studies 
+					- indentifing root causes
+					
+				computer vision (groups of pixels that cohere into objects)
+					- related pixel clustered to recognize faces or linscense plates
+	
+	- classification
+	
+		- supervised learning 
+			- require training with data that has known labels
+			- a classifier can then label new data based on what it learned in training
+		- start with known answer (label) e.g. a species 
+		- use a dataset to train the model 
+		
+		examples:
+		
+			spam filtering - train the model based on what you say is or isnt spam
+			oncology - train the model using images of tumors 
+			risk analysis - train using financial records of customers who do/don't default
+				- system will eventually learn to identify risks 
+				
+	algorithms
+	
+		many algorithms - no best algorithm
+		better to have more data - more accurate results 
+		some algorithms are better for low amount of data some are better at high amounts
+		low data algorithms are better are worse at high data volumes and vice versa 
+		
+		
+MLlib
+
+	sparks machine larning library
+	provides many algorithms that can be implemented by sparks
+	
+	

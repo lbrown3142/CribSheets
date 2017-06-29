@@ -16,7 +16,7 @@ installing cloudera manager
 
 		echo $JAVA_HOME
 		
-	check path 
+	check if python is in the path 
 		
 		env | grep PATH
 
@@ -70,30 +70,52 @@ installing cloudera manager
 		
 		
 		
-HDFS - watch again (first two) 
+HDFS - 
+
+	files are immuatable
+	write once, read many 
+	replication factor - 3 blocks on atleast 2 racks
 
 	name node
 		
-		only even orchestrates the process - not a bottl neck - no reads etcs 
-		fs name node - contains metadata 
+		holds all meta data in ram
+		also stored on disk and is read (in ram) when name node is started 
+			-fsimage file contains all metadata which is saved to disk
+		data node tell name node location of blocks are 
+		only ever orchestrates the process - not a bottle neck - no reads etcs 
+		hdfs is unavailbe if name node goes down - but easily recoverable 
+		everytime time the name node does something it is recorded in the edit file
+		fsimage contains all metadata for data location, what format, replication factor etc 
+		
+		 
 	
 	secondary name node
+		
+		repeatably reads the edit file and updates the fsimage file 
+		once finished it makes a copy of fsimage and send its to name node 
+		not a fail over name node
+		just as beefy as the name node in terms of specs 
 	
 	
 	
 HDFS File write 
 
-	if any time of the pipeline anytihng fails, it does it again, can copy data from nodes that were successful 
+	open up java jvm if using the java api
+	client tells name node to create a file
+	metadata is obtained for the file - block ID, location 
+	opens up a stream to each node in sequence as a pipline - on after the other 
+		data is copied from each data node like a pipeline until the block is fully copied
+	if any time of the pipeline anytihng fails, it does it again, can copy data from block that were successful 
 	
 	
 	
 	
 HDFS file reading
 	
-	call to name name - request info of a file
+	client call to name name - request info of a file
 	name node will return block names, locatiosn and persmissions
 	fs data input steam is created and and gets data from block
-	it also check if data is correct again the block is got it from
+	it also check if data is correct against the block is got it from
 	if it fails it copies again and logs a corrupt file 
 	
 
@@ -114,7 +136,7 @@ HDFS security
 	
 	authenications
 		
-		kerberis - enterprise builds
+		kerberos - enterprise builds
 		LDAP - can be used be uses clear view passwords so not recommended 
 		
 	access controll
@@ -123,11 +145,633 @@ HDFS security
 		
 	data encriptuon
 	
-		os level, hdfs level and network level -check for technology name 
+		os level, hdfs level and network level 
+		
+YARN
+
+	- 'yet another resource negotiator'
+	- multiple processing frameworks working at once -> need to distribute resources
+	- distributes memory and cpu across different  types of computational frameworks 
+	- can prioirtise on high priority jobs
+	
+	logs are saved to /tmp/logs
+	
+	- resource manager -> monitors all node managers 'heart beats'
+					   -> runs on master node 
+					   -> global resource scheduler
+					   -> distributes resources between competeing applications
+					   -> run schedulers - aims for data locality 
+					   -> handles applicaitons master requests for resources
+					   -> has plugable scheduler to support different algorithms (capacity, fair scheduler, etc)
+					   -> single point of fails - AM and NM can be remade if they go down - no applications or tasks can be launched in RM goes down - therefore RM is creates with high availibility - another RM can be made quickly 
+					   
+	- node manager -> runs on worker nodes
+				   -> communicates with RM
+				   -> runs work on worker nodes
+				   -> launch application masters
+				   -> monitor resource consumption
+				   
+	dynamic resourcing -> optimised data locality for jobs -> does not create a containers on every node anymore 
+	
+	job histort server -> records history of work done 
+	
+	1) work submitted to the cluster is submitted to the RM 
+	
+	2) RM connects to a node manager and creates an Applications Master (AM) on a worker node. it tells the AM what work needs to be processed
+	
+	Applications Master (AM)
+		-> one per yarn application
+		-> framework and application specific
+		-> runs in a container
+		-> tells applications to run application tasks 
+		
+	3) AM will ask the RM to create containers on other nodes. RM connects to a node managers on other nodes and instructs it to create one or more containers (java virtual machines JVM) which will do the work.
+	
+	Containers 
+		-> ram/cpu is allocated
+		-> appliations run inside one or more containers 
+	
+	4) AM will talk to the created containers and instruct them to do the actual work 
 	
 
+Map Reduce
+
+	task distribution across multiple nodes using record orientated data processing (key and value pairs) 
+	
+	send data from mappers to reducers
+	
+	mappers -> reads, transforms, does any row based operations on data
+			-> typically 1 per block
+			-> run on node with data on
+	
+	reducers -> any sort of agregation - min, max, sum etc
+	
+	 
+	1. each mapper processes a single input file split from HDFS
+	2. Hadoop passes one record at a time to the developers Mapper code
+		- each record has a key value pairs
+	3. intermediate data is written by the Mapper to local disk
+	4. During the shuffle and sort phase, all the values associated with the same intermediate key are transferred to the same Reducers
+		-keys are passed in sorted order
+	5. Output from Reducees is written to HDFS 
+	
+	Job - high level/full process
+	Task - individual unit of work either a map or Reduce task
+	Client - the program that submits the job to yarn
+	
+	logs -> /var/log/mapreduce
 	
 
+Spark
 	
+	Advantages
+		-> distribute processing of data
+		-> in memory (when possible)
+		-> processes data sorage on node (when possible) -> data locality 
+		-> works with hdfs
+		-> high level API -> developers can focus on solving the problem/logic and not worry about the plumming like a map reduce job 
+			-> 100 lines map reduce job might take 10 in spark 
+			-> more productive
+		-> much faster than map reduce -> up to 100 times 
+		
+	Allows us to:
+		-> do previously imposible or impractical tasks
+		-> lower cost
+		-> dev less times
+		-> good at iterative alogithms
+		-> greater flexibility
+		-> near linear scalbility with hardware
+		
+	
+	what is it?
+	
+		-> general engine for large scale data processing
+		-> written in scala -> JVM function programming language 
+		
+	Spark shell
+	
+		-> intractive for learning or data explorations
+		-> python (pyspark) or scala (spark-shell)
+		
+		REPL - read, evaluate, print, loop
+		
+		-> get immediate results back
+		
+		
+		-> every spark application requires a spark context - main entery point for spark
+			-> created as 'sc' when you start the shell 
+		
+	logs -> /var/log/spark 
+	
+	Spark Applications
+	
+		-> large scale data processing
+		-> python, scale or java
+		
+	Executors -> Spark jobs run tasks in exicutors 
+			  -> executors run in Yarn containers (one per container)
+			  -> executors exitst for life of application -> number is fixed once it starts and cannot rescale
+			  -> can pass thing to one another - in memory processing 
+	
+	Spark reuses containers unlike map reduce that creates and destroys them - containers are mainined throught life of job in spark
+
+RDD - resilient distributed dataset
+
+	resilient - data is recreated if lost
+	distributed - across cluster
+	dataset - initial data can come from a file or be created programmatically 
+	
+
+	-> RDD are a the fundamental unit of data in spark
+	-> most spark programming consists of performing operations on RDDs
+	
+	Creating Data
+	
+		-> from a file or set of files
+		-> data in memory 
+		-> from another RDD
+		
+	narrow opertation -> data (partitions - made of blocks) are maintained from one RDD to the next 
+	broad opertation -> operation that changes the keys of the partitions, once order of data is change they need to be restructured which changes the partitions - may no longer have as much data/partitions (aggreations etc) 
+	
+	
+	
+	
+Cloudera Manager Configuration Terminology
+
+	Services - service such as HDFS or Yarn
+
+	Roles - Created by CM when a service is configured. E.g. Name node is a role in the HDFS service
+		  
+
+	Role Group - Cloudera Manager construct for managing across multiple machines. Each has its own set of configurations
+			   -> group when same type of configuraton is needed 
+			  
+
+	Role instance - member of role group. e.g. a data node install on a specific machine 
+
+	service > role group > role instance
+
+	When you modifiy configuration oyu may need to restart cluster - get stale cluster notification
+	
+	client conf -> /etc/hadoop/conf
+	
+
+Managing roll instances
+	
+	can add a role instance such as a data node or decomission it (without losing data?)
 		
 
+Logs - pretty dry, may need to watch again
+
+
+Flume 
+
+	large amounts of data into hdfs as it is being produced
+	
+	good for log files - milliona of events a day
+	
+	reliability, flexibility, scaleability 
+	
+	3 layers 
+		
+		uses many flume agents - hiarraci
+		
+		agents process the data - encriptuon, compression, batch. configure as didfferent agents - compression agent or encryption agent 
+		
+		multiple agents can be assigned to the same job - more reliable and scaleable 
+		
+		pass data from one another 
+		
+		source -> channel -> sink 
+		
+		
+		each flume agent  has a source and a sink
+		
+		source - start location 
+		
+			tells the node where to reveive data from
+			files, syslog etc
+			
+		sink - end location
+		
+			tells the node where to send data
+		
+		channel 
+		
+			a queue between the source and sink
+			can be in memory only or Durable
+			durable channgels will not lose data if power is lost - disk based - reliable - roll back 
+			
+			
+		
+		flume scales linearly - add more agents 
+		
+		
+		
+	install using CM - add service 
+	
+	agents are configured using a configureation file 
+	
+		/var/run/cloudera-scm-agent/process/nn-flume-AGENT
+		
+		can have commands to act on the souce - tail -f 
+		source/sink locations
+		memory etc 
+	
+	agents can be chained together using source/sinks 
+	
+	to view confifguration -> flume > agent on specific box > configuration tab
+	
+		mkdir location dir in /users/flume/'some dir' and chown to flume 
+		
+		can batch single files together using roll size, count and interval
+		
+		
+		
+Sqoop
+
+	'the SEL to hadoop database import tool'
+	
+	designed to import data from relation database management systems into hdfs - can also from from HDFS to RDBMS
+	
+	supports importing and exploiting from many hadoop file types:
+	
+		hive tables
+		avro files
+		hbase tables
+		accumulo tables 
+		
+	uses java database connectivity 
+	
+	
+	sqoop exaimes table property and automatically generators a java class which runs a custom map reduce job 
+	
+	can have different database coonnectors - download 
+	
+	has lots of features :
+	
+		import single or all tables in database
+		
+		can specific which rows
+		
+		can spepcific which columns
+		
+		can do select statements
+		
+		can automatically create hive tables for imported data
+		
+		supports imcremental imports 
+		
+		can export data from a hdfs table to a database table 
+	
+	
+	
+	sqoop two same functionality but hides away cluster infomations - higher level view for customer - has web gui etc
+		
+			
+		
+	importing data
+
+		best practice to have an 'incoming' directory for data being imported and then a 'completed' directory for the end user to view 
+	
+	
+Planning hadoop cluster
+
+	Base your cluster on the amount of data you are expecting
+	
+	Worker nodes – data node, node manager and impala server daemons
+	
+	Master nodes – name node, secondary name node
+	
+	JBOD – just a bunch of disks
+	
+	Each map and reduce task takes 2GB to 4GB of RAM
+	
+	Each application master takes around 1GB of RAM
+	
+	Temporary storage and logs mean that typically 20-30% of a clusters raw disk capacity 
+	
+	HDDs provide better cost to performance ratio than SSDs
+	
+	JBOD performs 30-50% better than using RAID
+	
+	Blade servers are not recommended – usually limited RAM and memory
+	
+	Worker nodes are expected to fail at some point
+	
+	Master nodes are a single point of failure if it is not configured for HA. Cluster is inaccessible if this goes down, if the resource manager goes down then no new jobs ca n run on the cluster.
+	
+	Virtualisation can be used, when dedicated physical hardware isn’t practical
+	
+	Hadoop is very bandwidth intensive – use dedicated switches – minimum should be 1GB/s
+	
+	DNS is preffered to /etc/hosts – hostnames should be FQDN
+
+	
+	
+Hive
+
+	zoo keeper is prerequisit 
+	
+	zookeeper - distributed sycronisation for  hive jobs and fault recovery 
+			  - if anything breaks it will detects and solve the issue 
+
+	a hive table represents a hdfs directory 
+	
+		- all files in this directory are interpretted as the content of the hive table 
+		
+		- hive stores infomations about how the rows and columns are delimited with hte files in the -> Hive Metastore
+		
+		
+	Tables are created as either managed or external 
+	
+	Managed
+	
+		- hive manages underlying data files in the HDFS warehouse directory - /user/hive/warehouse
+		- if the table is dropped then the data and metadata are lost
+		
+	External 
+	
+		- references an external source in HDFS
+		- data is queried from there actual location in HDFS
+		- if table is dropped only scheme is deleted 
+		
+	Even though its SQL like is it NOT A RDMBS 
+	
+		- cannot update or delete data 
+	
+	
+Impala 
+
+	does not use map reduce -> uses impala daemons on each worker node instead
+	
+	impala daemons
+		- co-located with hdfs datanode and often the yarn node manager
+		- accepts quries from the impala-shell, hue, jdbc, odbc
+		- checks the local metadata cache
+		- distributes the work to other impala daemons in the cluster
+		- daemons read and write to data files and steam results to the client
+		
+		
+	other daeomons
+	
+	impala state store -> provides lookup service and status checks for the impala daemons
+	
+	impala catalogue server -> relays metadata changes to all the impala daemons in a cluster 
+	
+	
+	much quicker than hive
+	share metastore with hive 
+	
+	
+pig 
+
+	client side application for data analysis and processing on hadoop
+	another way of running map reduce jobs
+	syntax is pig latin
+	good at a joining and transforming data  
+	
+	
+	
+Hadoop client
+
+	anything thats uses the hadoop api
+	
+	recommended aproach is to use servers to connect to the cluster by proxy 
+	
+	clients can be manage by cloudera manager, it can deploy config files to each node 
+	
+	if not then it has to be updated manually on each node 
+	
+	
+	
+	hue -> requres superuser to install 
+		-> different services have different requirements 
+		-> hue requires hdfs, ooze and hive 
+		-> uses sql lite by default but can use sql, oracle sql or postgres
+	
+	
+	
+HDFS high availibility
+
+	uses a pair of namenodes
+	
+	no secondary name node 
+	
+	one on standby and one active 
+	
+	clients only contact the active name node
+	
+	datanode heartbeat to both name nodes
+	
+	the active namenode writes its metadata to a quorum of journal nodes
+	
+	standby name node reads the metadata from the journal nodes in order to keep in sync with the active name node 
+	
+	zookeer failover controller is used to control which node is the primary name node 
+	
+	
+Security 
+
+	authenication 
+		
+		-confirmign the identity of a participant
+		-typically done by checking credentials
+		
+	authorisation
+	
+		- deteming wether a participant is allowed to perform an action
+		- typically done by checking an access controll list
+		
+	encription
+	
+		- ensure only autherised users can access a dataset
+		- OS filesystem-level, HDFS-level, Network-level options
+		
+		
+	hsfs file ownership and permissions
+		
+		- provides modest pretection
+		- mainly intended to combat accidental deletions etc 
+	
+	kerberos 
+	
+		- provides strong authenication of both clients and servers
+		- wraps hadoop api calls in an ssl handshake
+		- application can be run under the submitters own acount 
+		
+		KDC is part of linux - key distributuin centre
+		
+		realm is a group of machine participating in a kerberos network
+		
+		principle - a unique identity which can be authenticated by kerberos
+				  - can idenity either a host or an individual user
+				  - every user in a secure cluster will have a kerberos principal
+				  
+		keytab file - a file that stored kerberos principals and associated keys		
+					- allows non interactive access to services protected by kerberos 
+	
+	data can be encrypted at different points 
+	
+	
+	
+	encription
+	
+		levels:
+		
+			- linux file systems
+				- navigator encrypts at the file system level for all application. it is also transparent to all applications 
+			
+			- hdfs level
+					- applied by hdfs software
+					- hdfs data at rest encription works at a hdfs folder level - this allows for encryption to only be applied where needed
+					- navigator trust key is requried
+						- can encypt  files in and outside of hdfs
+						- virtual keystore
+					
+			- network level 
+				- encrypt data just before sending across a network and decrypt it as it is received. this protection uses industry standard protocols such as ssl/tls
+				- prevents snooping 
+				
+	apache sentry 
+	
+		sentry is a plugin for enforcing role-based autheroisation for hive and impala
+			- stores auterhisation policy metadata
+			- provides clients with concurrent and secure access to this metadata
+			- database-style authorisation for hive, impala and search
+			
+			
+Resource managing
+
+	hadoop apps compete for resources
+	
+	objectives:
+		
+			- complete critical work in a reasonable timeframe
+			- coordinate cluster resouces usage between different users
+			- prevent users for blocking other users access
+	
+	tools availible for resource managing
+		
+		- linux control groups (cgroups)
+			- used to allocation reasources between framworks
+			- configure using static service pools
+			
+			- cgroups are kernal features for setting restictions on linux processes
+			- supported by RHEL 6 and CentOS 6
+			
+			- enables cgroup-based resources maangement of hadoop preocesses CM
+			- recommended when yarn and non yarn services are used on the same cluster 
+			
+			configuration parameters:
+			
+				- memory hard limit - if exceed this limit the process will be terminated 
+				
+				- memory soft limit
+				
+				- cpu share
+				
+				- i/o weight
+			
+	Scheddulers abd admission controlls
+		
+		- priortising when and where yarn applications and impala queries run
+		- configurable using dynanic reaource pools and other settings 
+		
+		
+	Yarn
+		
+		RM yarn scheduler assigns availble resources to yarn applications
+		scheduling policy determins how resources are shared
+		
+		yarn has 3 schedulers -> fair scheudler is the only one supported by cloudera 
+			-> resources allocated to weighted pools
+				- organises yarn apps to pools called queues
+				- each pool is named after user by default
+				- resources are distributed fairly between each pool
+				
+				specific pools can be assinged a higher priority (or weight) and they get more resources 
+				
+				
+				
+				features:
+				
+				- allows resources to be controlled proportionally
+				- promotes efficient utinilsation of cluster resources
+				- promotes fairness between scedulable entities
+				- allows short interactive and long production applicaitons to co-exist
+				- awards resources to pools that are most underdeserved
+				- give a container to the pool that has the fewest resources allocations 
+				
+				
+			-> fair sharing within each pool
+			
+			each app is assinged to a pool - there is a root pool and then other levels
+			resources are spread across all of pools
+			cluster is fully utilised 
+			
+			each pool is given a minimum amount of resources before fair share is applied 
+			
+			dynamic pooling
+			
+				- use to have to different rules for different days - weekday or weekend 
+				- determine in which pools different apps will run in
+				- set limit on how many apps a user can use at one time 
+				
+				
+	Resources
+
+		can check resources used by each daemon in the hosts resources tab 
+		
+	
+	impala mission control	
+	
+		impala does not go through yarn so it can require it own resources manager
+		
+		this is not enabled by default
+		
+		control groups cgroups can do this instead - this is recommended 
+		
+		
+cluster maintinence
+
+	hsfs fsuk checks for missing or corrupt data blocks 
+	
+		unlike system fsuk it does not attempt to repair them 
+		
+		check different flags for to test specific areas
+		
+		can have it optionally move files 
+		
+		and optionally delete files
+		
+	hsfs dfsadmin command provides a number of administrative features including:
+	
+		list infomation about hdfs on a per datanode basis
+		
+		reread the dfs.hosts and dfs.hosts.excludes files 
+		
+		take take snapshot of fsimage 
+		
+		safe mode 
+		
+		kill datanode for resiliance tests 
+		
+		
+	distcp copies data within a cluster or between cluster
+	
+	instead of copying data from one cluster to another it is recommendated to have two clusters that ingest data simultaneously - clones of each other  
+		
+		
+	snapshot - can have snapshots of all the data of cluster and have it scheduled 
+			
+		
+	
+	
+			
+	
+	
+	
+	
+	

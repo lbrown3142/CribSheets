@@ -147,6 +147,5 @@ can scheudle jobs such as spark to run when the cluster is spun up
 can manage clusters in diffferent cloud providers using plugins. 1 cloudera director instance can manage multiple clusters. 
 
 
-i2HQd/M6ik3N2zxq+Sc1ZedV9alxmhDcaoGCKvXW
 	
 	

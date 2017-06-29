@@ -1,7 +1,7 @@
 cloudera map reduce
 
 hbase
-	hugh throughput, large amounts of data, randomly queried
+	high throughput, large amounts of data, randomly queried
 	
 ingestion
 	
