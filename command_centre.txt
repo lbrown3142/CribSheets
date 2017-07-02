@@ -1,0 +1,37 @@
+python Main.py 10.102.82.69 cluster2
+
+10.102.82.76:8000
+
+python Main.py  cluster2
+
+sudo docker run -t -i docker-command-centre /bin/bash
+
+sudo docker export 31afd4eac2f7 | sudo gzip > docker-command-centre.tar.gz
+
+sudo cat docker-command-centre.tar.gz | sudo docker import - docker-command-centre
+
+
+
+sudo docker run -t -i --net=host docker-command-centre /bin/bash
+
+sudo docker run -t -i --expose=8000 --net=host docker-command-centre /bin/bash
+
+
+curl -v http://10.102.82.69:7180/api/v10/clusters -u dashboard:1234qwer
+
+
+sudo docker cp command-centre  9c0f12c5c359:/command-centre
+
+. ./clusterdock.sh
+
+clusterdock_run ./bin/start_cluster cdh
+
+python Main.py dashboard 192.168.56.101 "Cloudera Quickstart" "select count(*) from default.test_table"
+
+python Main.py dashboard 10.102.82.69 cluster2 "select count(*) from default.test_table"
+
+
+automatically run on startup 
+
+	/etc/init.d/'docker script' 
+

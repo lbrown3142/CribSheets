@@ -1,0 +1,52 @@
+Artifactory 
+
+software builds
+
+	gradle is a build tool 
+	
+	
+What is an artifact repository?
+
+	- the binary repository manager
+	- the place where you can store all your artifacts
+	- proxy for remote repositories
+	- your dependancy maanger will work again it 
+	
+	
+source vs binary
+
+sources
+
+	- text
+	- diffable
+	- version by content
+	- stored by overide 
+	
+binaries
+
+	- blob of 1 and 0
+	- not diffable
+	- versioned by name 
+	- should never overide
+	
+you don't want artifact in git as it clogs it up and slows it down -> should store binaries/artifact in a file system instead 
+
+
+Requirements
+
+	- proxy other repositories
+	- search by name, context and content
+	- maange artifact lifecycle 
+	- clean up snapshots
+	- optimise storage size 
+		- checksum storage 
+			- checksum used as filename - binaries 
+		- append adds new artifact
+		- garbage collection deletes old artifacts 
+		
+	- enforece module security 
+	- expose rest API 
+	
+	
+dependancies are stored in artitory and can be used by developers
+	- as well as the artifacts 

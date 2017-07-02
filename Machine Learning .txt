@@ -11,7 +11,7 @@ Machine laerning alorithms learn from data and often produce a predictive model 
 	models can then be use to make predictions as new data arrives
 	
 	
-	
+different algorithm require different input data
 	
 Three machine learning techniques are (three C's):
 	
@@ -26,6 +26,18 @@ Three machine learning techniques are (three C's):
 		- domain agnostsic 
 		- relationships between users and items and not items themselves
 		- amazon uses collaborative filtering to find users with similar taste
+		
+		algorithms:
+			
+			alternating least square algorith for product recommendations
+			mllib only support movie rating, can't do product recommendations yet 
+			
+			supports both implicit and explicit feedback from input data
+				
+				implicit from observing user behavour 
+				explicit from rating provided by the users 
+			
+			
 	
 	- clustering
 	
@@ -39,6 +51,12 @@ Three machine learning techniques are (three C's):
 				- divide huge amount of data into smaller groups
 				- can then tune analysis for each group 
 				
+			algorithms:
+			
+				- k-means
+				- streaming k-meansgaussian mixutre model
+				- power interation clustering (PIC)
+				- latent dirichlet allocation (LDA) 
 			
 				
 			examples:
@@ -53,7 +71,7 @@ Three machine learning techniques are (three C's):
 					- indentifing root causes
 					
 				computer vision (groups of pixels that cohere into objects)
-					- related pixel clustered to recognize faces or linscense plates
+					- related pixel clustered to recognize faces or liscense plates
 	
 	- classification
 	
@@ -70,6 +88,51 @@ Three machine learning techniques are (three C's):
 			risk analysis - train using financial records of customers who do/don't default
 				- system will eventually learn to identify risks 
 				
+		algorithsm:
+
+			- logistic regression
+			- linear support vector machines (svms)
+			- decision trees
+			- random forests
+			- gradient boosted decision tress
+			- naive bayes
+			- least-squared regression
+			- ridge regression
+			- lasso regression 
+			
+		classification corresponds to a predciting a categorical label
+			- can have multiple labels (what you're trying to predict)
+			- simplest case in binary classication (y/n answers)			-
+				-> this is the most frequent use
+					- 'will this person pay be able to get a loan?'
+					- 'is this tumor malignat?'
+		
+		regression corresponds to predicting a contineous numberical value 
+			- value to be predicted can be bounded or unbounded 
+				- unbounded is literall get a numberr
+				- bounded is mean the number corresponds to a range which corresponds to a catagory 
+			- simplest case is linear regression
+			- often used to predict prices or values
+				- 'how much should my home sell for?'
+				- 'how many peope will vote in this election'
+		
+			
+				
+	overfitting -> fitting noice instead of signal 	
+	
+			adds extra term B (beta) which change the model 
+				
+			regularisaton is impllemented in the algoirth thta produces the model 
+			
+				two common types of regulatiseion for linear regression:		
+					- L1 or LASSO regulation
+						- tends to encourage some B to be zero 
+						
+					- L2 or redige (tikhonov) regularisaton
+					
+					
+				
+				
 	algorithms
 	
 		many algorithms - no best algorithm
@@ -80,7 +143,51 @@ Three machine learning techniques are (three C's):
 		
 MLlib
 
-	sparks machine larning library
+	sparks machine learning library
 	provides many algorithms that can be implemented by sparks
+	
+	- supports all of the base data types in spark
+	- includes data types useful in linear algebra and machine learning
+	- must be floating point numbers 
+	
+	
+	suppports basic statistis functionality:
+	
+		- summary statistics
+		- correlations
+		- sampling
+		- hypothesis testing 
+		- random data generation
+		- kernal density estimation 
+		
+	statistcs functionality is contained in the mllib.stat module 
+	
+	feature extractor in mllib refers to transforming data in order to prepare it as input for a machine learning algorithm
+	
+	suports sparse and dense vectors and matrixes
+		
+		dense -> (0,0,0,0,1,3,0,0) raw vector, include zeros -> this is a problem as it is a waste of memory
+		sparse -> (8, [5, 6], [1, 3]) maps out the zeros in the dense vector ('length',['indexes containing zeros']['value of zeros'])
+		
+		
+	elementwiseproduct 
+	
+		multiplies each element by a user supplied weight 
+		
+	standard scalar
+	
+		operations on an rdd 
+		
+		can do mean or standard deviation on rdd 
+		
+	
+	dimensionality reduction
+	
+		refers to reducing the numbers of features to a subset that contain the most infomation 
+		
+			-> simplify
+			-> reduce noise 
+			
+	
 	
 	

@@ -1,0 +1,125 @@
+Check corresponding R and Python script for code
+
+Section 2
+
+	Independant variable 
+		
+		- predicted by depandant variable
+		- e.g. country, age, salary
+
+	Dependant variable 
+
+		- yes or no
+		- e.g. did the person by the item
+
+	Missing data
+
+		- can delete row but this is dangerous as that data could be crucial
+		- best practice is to take the mean of the column
+		
+			do this in python using Imputer -> from sklearn.preprocessing import Imputer
+					
+					hint: use command + i to get info about a class 
+				
+					- this library is good for processing data 
+					
+	Catagorical data
+
+		- contain catagories like countries or yes and no 
+		- can encode these values to numbers 
+			
+			- do this using LabelEncoder -> from sklearn.preprocessing import LabelEncoder
+
+		dummy encoding
+		
+			- do this using OneHotEncoder -> from sklearn.preprocessing import OneHotEncoder
+		
+			- have a column for each value either filled with 1 or 0
+			- stops alorithm getting confused 
+			
+				- might think that value 3 is greater than value 1 when really these have no meaning 
+				
+				
+	Splitting datasets 
+	
+		this is done using train_test_split -> from sklearn.cross_validation import train_test_split
+
+
+		training dataset 
+		
+			- used to train the model
+			
+		test dataset
+			
+			- slightly different to training set
+			- used to test performance of model 
+				-> to test if the machine learning model learnt the correct correlations 
+			- test size proportion is usually from 0.2 - 0.3 sometimes up to 0.4
+			
+			
+	Feature Scaling
+	
+		this is done using StandardScaler  -> from sklearn.preprocessing import StandardScaler
+
+	
+		scaling for numbers can cause errors in machine learning models
+			
+			-> this is because most models use uclidean distance 
+			
+				-> the eclidean distance is proportional to the difference sqaured 
+				
+					-> uclidean distance for one column can dominate another column 
+					
+		to combat this we use feature scaling techniques
+		
+			standardisaton -> x(stand) = (x - mean(x)) / standard deviation(x)
+			
+			or 
+			
+			normalisation -> x(norm) = (x - min(x)) / (max(x) - min(x))
+			
+	
+	Linear Regression
+	
+		y = b0 = b1*x1
+		
+			y -> dependant variable (DV)
+			  -> what you're trying to explain 
+			  -> e.g. how does a person salary change with experience 
+			  -> try to understand how it depends on something else
+			  
+			x1 -> Independant variable (IV)
+			   -> can have more than one 
+			   -> assume that this causes the depandant variable to change 
+			   -> need to figure out this association 
+			   
+			b1 -> Coefficient
+			   -> gradient of line 
+			   -> proportional relationship (connector) betweem DV and IV 
+			   -> constant 
+			   
+			b0 -> y axis intercept 
+			
+		- do not need to apply feature scaling as the alorithm takes care of this 
+			
+	
+		Ordinary Least Squares
+		
+			line of best fit 
+			
+				- many line are fitted and the corresponding parameters are inputed into this equation 
+			
+					-> SUM(y - y^)^2 = result  
+					
+						where:
+			
+							yi -> actual value data point 
+							
+							yi^ -> modeled valued 
+				
+					the line that provides the mimimum result is the line of best fit 
+					
+					
+	
+		
+			
