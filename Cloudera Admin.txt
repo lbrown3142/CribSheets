@@ -1,4 +1,4 @@
-Hadoop Administrator 
+﻿Hadoop Administrator 
 
 traditionally data throughput (reading data) is slow compared disk capacity 
 
@@ -46,7 +46,7 @@ installing cloudera manager
 
 	install clouder manager daemons
 
-		sudo yum -y cloudera-magager-daemons > cloudera manager server 
+		sudo yum install -y cloudera-magager-daemons > cloudera manager server 
 
 
 	check config 
@@ -81,7 +81,7 @@ HDFS -
 		holds all meta data in ram
 		also stored on disk and is read (in ram) when name node is started 
 			-fsimage file contains all metadata which is saved to disk
-		data node tell name node location of blocks are 
+		data nodes tell the name node the location of blocks 
 		only ever orchestrates the process - not a bottle neck - no reads etcs 
 		hdfs is unavailbe if name node goes down - but easily recoverable 
 		everytime time the name node does something it is recorded in the edit file
@@ -103,7 +103,7 @@ HDFS File write
 	open up java jvm if using the java api
 	client tells name node to create a file
 	metadata is obtained for the file - block ID, location 
-	opens up a stream to each node in sequence as a pipline - on after the other 
+	opens up a stream to each node in sequence as a pipeline - one after the other 
 		data is copied from each data node like a pipeline until the block is fully copied
 	if any time of the pipeline anytihng fails, it does it again, can copy data from block that were successful 
 	

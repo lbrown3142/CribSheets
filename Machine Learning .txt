@@ -188,6 +188,50 @@ MLlib
 			-> simplify
 			-> reduce noise 
 			
+
+Spark ML 
+
+	before machine learning algorithms can be applied the data usually needs to be transformed many time to get it to the right format
+		
+		-> once this is done the model can be trained and then used to obtain predictions
+		
+		- this is sequence of event is a pipeline
+		- e.g. convert data types, scale, fill in missing data (mean), apply algorithm, traing model, get predictions 
+		
+		a pipeline consists of: 
+		
+			Transformation: transform one dataset to another dataset
+			
+			Estimator: algorith that can be fit onto one dataset to produce a model 
+			
+			
+	Spark ML prodives a high levle api for machine learning pipelines 
+	
+		main abstractions:
+		
+			Dataframe - Spark ML data types
+			
+				- RDD's of row objects 
+				
+					- RDD's have a name and a type set of columns 
+				
+				- dataframes contain metadata describing the columns 
+			
+			Transformation - transform one dataset to another dataset -> one dataframe to another 
+			
+			Estimator - algorith that can be fit onto one dataset to produce a model 
+			
+				- run on RDD to produce a model 
+				
+					- a model is a transformer,  it transforms one dataframe to another 
+			
+			Pipeline - chain multiple steps to produce a ML workflow
+			
+			
+			
+		
+		
+			
 	
 	
 	

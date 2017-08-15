@@ -1,0 +1,101 @@
+SCRUM
+
+Chapter 2
+	
+	Planning is useful -> blindly following plans is stupid 
+	When detailed plans meets reality they almost alyways fall apart
+	Buid into working method the assumption of discovery, change and new ideas
+	Inspect and Adapt - every little while stop what youre doing, inspect what you're doing and see if its still what you should be doing  and if you can do it better
+	Clinging to the old way of doing things is, command and control and rigidity will only bring failure 
+	Fail fast so you can fix early 
+	Work that does not create early value is madness 
+
+Chapter 3
+
+	Hesitation is death - observe, orient, decide, act - know where you are -> access your options -> make a decision -> act
+	Look outward for - complex system follow rules that they learn from their enviroment 
+	Great teams are cross functional, self organisinig and empowered with a trancedant purpose 
+	Don't guess - plan, do, check, act -> plan what you need to do -> act on that -> check if it did whay you wanted -> act on that -> change how you're doing things  -> repeat in regular cycles -> achieve continuous improvement 
+	First learn the rulues of the forms -> when you've masted them make innovations -> finally in a heighted state of mastery discard the forms and just be (internalised and decisions make almost unconscously) 
+
+Chapter 4
+
+	Change team performance as oppose to individual performs - serveral orders of magnitude more effective 
+	Transendance - great teams have a purpose that it higher than the individual 
+	Autonamy - Give teams the freedom to make decisions on how to take action to be respected as masters of their craft - the ability to improvise will make all the difference
+	Cross functionality - team must have every skill needed to complete a project 
+	Small wins - small teams get work done faster than big teams (5 - 9 team members)
+	Blame is stupid - don't look for bad people - look for bad systems - ones that incentise bad behavour and reward poor performance 
+
+Chapter 5
+	
+	Time is finite - treat it that way - break down your work into what can be achieved in a regular, set, short period (1 - 4 weeks sprints)
+	Demo or die - at the end of each sprint have something that can be used
+	Throw away your business cards - titles are specialised status markers - be known for what you do not what you're refered to as 
+	Communication saturation accelerates work - everyone knows everything 
+	One meeting a day - stand up - see what can be done to increase speed 
+	
+
+Chapter 6
+
+	Multitasking makes you stupid makes you slower and worse at both tasks
+	Half done is not done - resources are tied up that could be used to create value or save money 
+	Do it right the first time - if you make a mistake fix it straight away - stop everything else - fixing it later can take you 20 times longer than if you fix it now 
+	Working long hours doesn't get more done - it gets less done - fatigue -> errors -> fix errors (work weekdays only at a sustainable pace and take vacations) 
+	Don't be unreasonable - goals that are challenging are motivators - goals that a impossible are depressing 
+	No heroics - if you need a hero that means something has failed - if you need a hero to get things done then you have a problem 
+	Any policy that seems ridiculous - likely is -> if things seem stupid then fix them 
+	No ass holes -> anyone who causes emotional chaos, inspires dread etc need to stopped cold 
+	Choose the smoothest most trouble free way to get things done -> scrum is about enabling the most flow posible 
+
+
+Chapter 7
+	
+	Map is not the terrain - don't fall inlove with your plan - its almost certainly wrong
+	Only plan what you need to - not years in advanced - just enough to keep your teams busy 
+	Don't estimate in absolute terms - size things relatively 
+	Planning poker to estimate size of word - group cards
+	Use ind technique such as the Delphi method do avoid bias such an the archor effect or halo method?? 
+	Work is a story - think first about who will be getting the value, then about what it is, and then why they need it
+	Know your velocity every scrum team should know exactly how much work they can get done - and they should know how they can improve that velocity by removing barriers and improving how they work 
+	Velocity X Time = Delivery 
+	Set audacious goals!
+
+Chapter 8
+	
+	It's the journey not the destination 
+	True happiness is found in the process - not the result
+	Prioritising rewarding people that are striving for greatness as oppose to delivering work
+	Happyness is the new black - smarter decisions, more creative, less likely to leave you job, accomplish far more than you ever anticipated 
+	Quantify happyness - measure and compare against actual performance - future looking metric as oppose to backward - get better every day and measure it 
+	End of each sprint the team should pick one small improvement that would make them happier - that will become the most important thing they will accomplish in the next sprint 
+	Secrecy is poison - everyone should know everything - including salaries and financials 
+	
+	
+TO LISTEN
+	
+Chapter 9 
+
+	Make a list of everything that needs to be done to complete a project - prioritise it -> highest value, lowest risk at the top - check the list twice!
+	Product owner - she translates visiion into backlog she needs to understand the buinsess card, the market and the customer
+	A leader isnt the boss - a product owner sets out what needs to be done and why - how the team accomplishes it and who accomplises it is up to the team 
+	Product owner has knowledge of the domain and the power to make the final decisions - she is availible to answer questions and is accountable for delivering value 
+	Observe, orient, decide, act - OODA - see the whole stragic picture but act tactically and quickly
+	Fear, uncertainty and doubt - its better to give then receive - get inside your competitions OODA loop and wrap them up in their own confusion 
+	Get your money for nothing and your change for free - create new things only as long as they create value - be willing to swap them out for things that require equal effort - what you need at the start is not what you need at end 
+	
+Chapter 10
+
+	Scrum accelerates all human endevors 
+	The type of project or problem doesnt matter
+	Scrum can be used in any endevor to improve performace and results
+	Netherlands schools use scrum to teach puplics
+	scrum for proverty
+	rip up your business cards - get rid of all titles, all structures and give people the freedom to do what they do best, and the accountability to be responsible for it - you'll be surprised at the results 
+	
+	
+	
+	
+	
+	
+scrum is designed so you can boot up a team in a couple of days, get your backlog, plan your first sprint and away you go. You dont need to devote a lot of time to planning, reflections, mission statements etc
